@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
@@ -12,14 +12,9 @@ const orderSchema = mongoose.Schema(
       ref: "Recipe",
       required: true,
     },
-    delivery_date: {
-      type: Date,
-      required: true,
-    },
-    delivery_status: {
-      type: String,
-      enum: ["pending", "in_progress", "delivered", "delayed"],
-      default: "pending",
+    delivery_details: {
+      type: Schema.Types.ObjectId,
+      ref: "Delivery",
     },
     payment_status: {
       type: String,
