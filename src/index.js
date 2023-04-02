@@ -14,17 +14,13 @@ app.use(cors());
 // app.use("/auth", authRoutes);
 // app.use("/item", itemRoutes);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 // Connect to DB
-mongoose.connect(
-  process.env.DB_CONNECTION_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  () => console.log("Connected to DB")
-);
+mongoose.connect(process.env.DB_CONNECTION_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
