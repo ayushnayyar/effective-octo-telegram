@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import { rateLimit } from "express-rate-limit";
 import "dotenv/config";
 // import authRoutes from "./routes/auth.js";
 // import itemRoutes from "./routes/item.js";
