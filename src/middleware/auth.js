@@ -1,23 +1,23 @@
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-// const auth = async (req, res, next) => {
-//   try {
-//     const token = req.headers.authorization.split(" ")[1];
-//     const isCustomAuth = token.length < 500;
-//     let decodedData;
+const auth = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      jwt.verify(token, process.env.SECRET, (err, user) => {
+        if (err) {
+          return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
+      });
+    } else {
+      res.sendStatus(401);
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Auth failed" });
+  }
+};
 
-//     if (token && isCustomAuth) {
-//       decodedData = jwt.verify(token, process.env.SECRET);
-//       req.userId = decodedData?.id;
-//     } else {
-//       decodedData = jwt.decode(token);
-//       req.userId = decodedData?.sub;
-//     }
-
-//     next();
-//   } catch (error) {
-//     res.status(500).json({ message: "Auth failed" });
-//   }
-// };
-
-// export default auth;
+export default auth;

@@ -11,6 +11,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+// Define a rate limiting middleware function
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+});
+
+// Apply the rate limiting middleware function to a route
+// app.use("/api/", limiter);
+
 // app.use("/auth", authRoutes);
 // app.use("/item", itemRoutes);
 
