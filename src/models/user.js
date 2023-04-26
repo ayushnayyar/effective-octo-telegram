@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { jwtTokenExpiry } from "../common/variables";
 
 const userSchema = mongoose.Schema(
   {
@@ -22,6 +23,17 @@ const userSchema = mongoose.Schema(
         default: "none",
       },
     },
+    sessions: [
+      {
+        token: { type: String, required: true },
+        createdAt: {
+          type: Date,
+          required: true,
+          default: Date.now,
+          expires: jwtTokenExpiry,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

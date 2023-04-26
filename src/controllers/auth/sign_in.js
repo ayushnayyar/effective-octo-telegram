@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../../models/user.js";
+import { jwtTokenExpiry } from "../../common/variables.js";
+import { createToken } from "../../common/jwt.js";
 
 const signIn = async (req, res) => {
   const { email, password } = req.body;
@@ -22,15 +24,7 @@ const signIn = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign(
-      {
-        email: existingUser.email,
-        id: existingUser._id,
-      },
-      // Generate strong secret and store in env
-      process.env.SECRET,
-      { expiresIn: "14d" }
-    );
+    const token = createToken(existingUser);
 
     const sendResponse = {
       _id: existingUser._id,
