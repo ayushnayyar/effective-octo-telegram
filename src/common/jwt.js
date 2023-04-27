@@ -1,5 +1,6 @@
-import User from "../models/user";
-import { jwtTokenExpiry, numberOfSessionsAllowed } from "./variables";
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+import { jwtTokenExpiry, numberOfSessionsAllowed } from "./variables.js";
 
 export const createToken = async (user) => {
   // create jwt
@@ -17,19 +18,15 @@ export const createToken = async (user) => {
 
   if (numberOfActiveSessions >= numberOfSessionsAllowed) {
     sessions.shift();
-    sessions = [...sessions, { token: token }];
   }
+
+  sessions = [...sessions, { token: token }];
 
   // Update user
   await User.findByIdAndUpdate(
     user._id,
     { sessions: sessions },
-    { safe: true },
-    (err, docs) => {
-      if (err) {
-        console.log(err);
-      }
-    }
+    { safe: true }
   );
 
   return token;

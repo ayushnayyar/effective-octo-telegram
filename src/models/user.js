@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
-import { jwtTokenExpiry } from "../common/variables";
+import mongoose, { Schema } from "mongoose";
+import { jwtTokenExpiry } from "../common/variables.js";
 
 const userSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    phone: { type: String, required: true, unique: true },
+    phone: { type: String }, // TODO: Add required and unique params
     savedRecipes: [
       {
         type: Schema.Types.ObjectId,

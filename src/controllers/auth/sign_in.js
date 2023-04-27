@@ -1,8 +1,6 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 import User from "../../models/user.js";
-import { jwtTokenExpiry } from "../../common/variables.js";
 import { createToken } from "../../common/jwt.js";
 
 const signIn = async (req, res) => {
@@ -24,14 +22,13 @@ const signIn = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = createToken(existingUser);
+    const token = await createToken(existingUser);
 
-    const sendResponse = {
-      _id: existingUser._id,
-    };
-
-    res.status(200).json({ result: sendResponse, token });
+    res
+      .status(200)
+      .json({ _id: existingUser._id, sessions: existingUser.sessions, token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
 };
