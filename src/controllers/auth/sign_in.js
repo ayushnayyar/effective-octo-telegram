@@ -24,12 +24,12 @@ const signIn = async (req, res) => {
 
     const token = await createToken(existingUser);
 
-    res
+    return res
       .status(200)
       .json({ _id: existingUser._id, sessions: existingUser.sessions, token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 

@@ -23,10 +23,10 @@ const signUp = async (req, res) => {
 
     const token = await createToken(result);
 
-    res.status(200).json({ _id: result._id, token });
+    return res.status(200).json({ _id: result._id, token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 

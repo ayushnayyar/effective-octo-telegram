@@ -19,7 +19,7 @@ const limiter = rateLimit({
 });
 
 // Apply the rate limiting middleware function to a route
-// app.use("/api/", limiter);
+app.use("/", limiter);
 
 app.use("/auth", authRoutes);
 // app.use("/item", itemRoutes);
