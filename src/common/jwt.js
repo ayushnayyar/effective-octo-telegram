@@ -22,12 +22,36 @@ export const createToken = async (user) => {
 
   sessions = [...sessions, { token: token }];
 
-  // Update user
-  await User.findByIdAndUpdate(
-    user._id,
-    { sessions: sessions },
-    { safe: true }
-  );
+  try {
+    // Update user
+    await User.findByIdAndUpdate(
+      user._id,
+      { sessions: sessions },
+      { safe: true }
+    );
 
-  return token;
+    return token;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const removeToken = async (user, token) => {
+  let sessions = user.sessions;
+
+  if (sessions.length) {
+    sessions = sessions.filter((session) => session.token != token);
+  }
+
+  try {
+    // Update user
+    await User.findByIdAndUpdate(
+      user._id,
+      { sessions: sessions },
+      { safe: true }
+    );
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
