@@ -8,9 +8,15 @@ const auth = async (req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
+  if (!token) {
+    return res.status(401).send("Token not provided.");
+  }
+
+  console.log(token, authHeader);
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
     const user = await User.findOne({ "sessions.token": token });
     // If the user is not found, the token is invalid...
     if (!user) {

@@ -5,11 +5,9 @@ const signOut = async (req, res) => {
   const token = req.token;
 
   try {
-    if (!user) {
-      return res.status(404).json({ message: "User doesn't exist" });
-    }
-
     const status = await removeToken(user, token);
+
+    console.log(status);
 
     if (!status) {
       return res.status(400).json({ message: "Log out failed" });
