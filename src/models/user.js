@@ -1,12 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 import { jwtTokenExpiry } from "../common/variables.js";
 
-const userSchema = mongoose.Schema(
+const userSchema = Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Account" }],
+    accounts: [{ type: Schema.Types.ObjectId, ref: "Account" }],
     phone: { type: String }, // TODO: Add required and unique params
     sessions: [
       {

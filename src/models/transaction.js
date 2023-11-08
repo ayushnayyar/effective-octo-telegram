@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
+import mongoose, { Schema } from "mongoose";
 
-const transactionSchema = new mongoose.Schema({
-  account: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
+const transactionSchema = new Schema({
+  account: { type: Schema.Types.ObjectId, ref: "Account" },
   date: Date,
   amount: Number,
   description: String,
-  category: String,
-  type: String, // e.g., "Expense" or "Income"
+  category: { type: Schema.Types.ObjectId, ref: "Category" },
+  type: String,
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
-module.exports = Transaction;
+export default Transaction;
