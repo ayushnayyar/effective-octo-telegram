@@ -1,7 +1,7 @@
 export const jwtTokenExpiry = "14d";
 export const numberOfSessionsAllowed = 5;
 
-export const accountTypes = {
+export const accountType = {
   bankAccount: "BankAccount",
   creditCard: "CreditCard",
 };

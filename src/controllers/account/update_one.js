@@ -1,1 +1,1 @@
-const update = async (req, res) => {};
+const updateOne = async (req, res) => {};
