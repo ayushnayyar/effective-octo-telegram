@@ -6,24 +6,8 @@ const userSchema = mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    lastPasswordChangedDate: { type: Date },
+    accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Account" }],
     phone: { type: String }, // TODO: Add required and unique params
-    savedRecipes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Recipe",
-      },
-    ],
-    subscription: {
-      start: Date,
-      end: Date,
-      duration: Number,
-      plan: {
-        type: String,
-        enum: ["none", "basic", "premium"],
-        default: "none",
-      },
-    },
     sessions: [
       {
         token: { type: String, required: true },
