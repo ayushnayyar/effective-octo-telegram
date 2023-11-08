@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import "dotenv/config";
+
 import authRoutes from "./routes/auth.js";
-// import itemRoutes from "./routes/item.js";
+import transactionRoutes from "./routes/transaction.js";
+import accountRoutes from "./routes/account.js";
 
 const app = express();
 
@@ -15,14 +17,15 @@ app.use(cors());
 // Define a rate limiting middleware function
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: 200, // Limit each IP to 100 requests per windowMs
 });
 
 // Apply the rate limiting middleware function to a route
 app.use("/", limiter);
 
 app.use("/auth", authRoutes);
-// app.use("/item", itemRoutes);
+app.use("/transaction", transactionRoutes);
+app.use("/account", accountRoutes);
 
 const port = process.env.PORT || 8000;
 
