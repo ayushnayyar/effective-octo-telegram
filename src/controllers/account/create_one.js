@@ -1,4 +1,5 @@
 import Account from "../../models/account.js";
+import User from "../../models/user.js";
 import { accountType } from "../../common/variables.js";
 
 const createOne = async (req, res) => {
@@ -16,6 +17,11 @@ const createOne = async (req, res) => {
       balance: balance,
       owner: user._id,
     });
+
+    const updateUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $push: { accounts: result._id } }
+    );
 
     return res.status(201).json({ _id: result._id });
   } catch (error) {

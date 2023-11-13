@@ -21,9 +21,9 @@ router.get("/", auth, getAll);
 router.get("/:id", auth, accountOwnerCheck, getById);
 
 // Update a account by ID
-router.put("/:id", auth, updateOne);
+router.put("/:id", auth, accountOwnerCheck, updateOne);
 
 // Delete a account by ID
-router.delete("/:id", auth, deleteOne);
+router.delete("/:id", auth, accountOwnerCheck, deleteOne);
 
 export default router;
