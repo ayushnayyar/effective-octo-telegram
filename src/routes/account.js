@@ -1,6 +1,7 @@
 import express from "express";
 
 import auth from "../middleware/auth.js";
+import accountOwnerCheck from "../middleware/account_owner_check.js";
 
 import createOne from "../controllers/account/create_one.js";
 import getAll from "../controllers/account/get_all.js";
@@ -17,7 +18,7 @@ router.post("/", auth, createOne);
 router.get("/", auth, getAll);
 
 // Retrieve a specific account by ID
-router.get("/:id", auth, getById);
+router.get("/:id", auth, accountOwnerCheck, getById);
 
 // Update a account by ID
 router.put("/:id", auth, updateOne);
