@@ -7,6 +7,7 @@ const transactionSchema = new Schema({
   description: { String },
   category: { type: Schema.Types.ObjectId, ref: "Category" },
   type: { type: String, required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

@@ -1,1 +1,5 @@
-const deleteOne = async (req, res) => {};
+const deleteOne = async (req, res) => {
+  return {};
+};
+
+export default deleteOne;

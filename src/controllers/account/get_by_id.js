@@ -1,1 +1,5 @@
-const getById = async (req, res) => {};
+const getById = async (req, res) => {
+  return {};
+};
+
+export default getById;

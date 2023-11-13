@@ -2,8 +2,7 @@ import Transaction from "../../models/transaction.js";
 import { transactionType } from "../../common/variables.js";
 
 const createOne = async (req, res) => {
-  const { account, description, type, category } = req.body;
-  const user = req.user;
+  const { amount, account, description, type, category } = req.body;
 
   try {
     if (type !== transactionType.income && type !== transactionType.expense) {
@@ -15,7 +14,8 @@ const createOne = async (req, res) => {
       description: description,
       type: type,
       category: category,
-      owner: account._id,
+      account: account,
+      createdBy: req.user._id,
     });
 
     return res.status(201).json({ _id: result._id });

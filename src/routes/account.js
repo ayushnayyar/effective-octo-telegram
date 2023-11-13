@@ -25,4 +25,4 @@ router.put("/:id", auth, updateOne);
 // Delete a account by ID
 router.delete("/:id", auth, deleteOne);
 
-module.exports = router;
+export default router;

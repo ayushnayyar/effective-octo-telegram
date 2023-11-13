@@ -4,7 +4,7 @@ const accountSchema = new Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   balance: { type: Number, default: 0 },
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
+  ownerAccount: { type: Schema.Types.ObjectId, ref: "User" },
   transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }],
 });
 
