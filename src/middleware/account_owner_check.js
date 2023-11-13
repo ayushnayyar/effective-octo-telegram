@@ -4,6 +4,7 @@ const accountOwnerCheck = async (req, res, next) => {
   const { id } = req.params;
   try {
     const account = await Account.findOne({ _id: id });
+    console.log(account);
 
     if (!account) {
       return res.status(401).send("Invalid account.");

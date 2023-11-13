@@ -1,10 +1,15 @@
 import Account from "../../models/account.js";
+import User from "../../models/user.js";
 
 const deleteOne = async (req, res) => {
   const account = req.account;
   try {
     const result = await Account.findOneAndDelete({ _id: account._id });
-    return res.status(200).json({ account: req.account });
+    const updateUser = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $pull: { accounts: account._id } }
+    );
+    return res.status(200).json({ message: "Account deleted" });
   } catch (error) {
     console.log(error);
     return res
