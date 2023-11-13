@@ -6,16 +6,13 @@ const createOne = async (req, res) => {
   const user = req.user;
 
   try {
-    let accType;
-    if (type === accountType.bankAccount) {
-      accType = accountType.bankAccount;
-    } else {
-      accType = accountType.creditCard;
+    if (type !== accountType.bankAccount && type !== accountType.creditCard) {
+      return res.status(400).json({ message: "Wrong account type" });
     }
 
     const result = await Account.create({
       name: name,
-      type: accType,
+      type: type,
       balance: balance,
       owner: user._id,
     });

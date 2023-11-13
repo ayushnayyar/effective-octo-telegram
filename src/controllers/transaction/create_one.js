@@ -6,17 +6,14 @@ const createOne = async (req, res) => {
   const user = req.user;
 
   try {
-    let txnType;
-    if (type === transactionType.income) {
-      txnType = transactionType.income;
-    } else {
-      txnType = transactionType.expense;
+    if (type !== transactionType.income && type !== transactionType.expense) {
+      return res.status(400).json({ message: "Wrong transaction type" });
     }
 
     const result = await Transaction.create({
       amount: amount,
       description: description,
-      type: txnType,
+      type: type,
       category: category,
       owner: account._id,
     });
