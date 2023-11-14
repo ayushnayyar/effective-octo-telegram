@@ -14,6 +14,7 @@ const updateOne = async (req, res) => {
     if (balance) {
       account.balance = balance;
     }
+    // TODO: handle failure of update operation
     const result = await Account.findOneAndUpdate(
       { _id: account._id },
       account

@@ -10,7 +10,7 @@ const createOne = async (req, res) => {
     if (type !== accountType.bankAccount && type !== accountType.creditCard) {
       return res.status(400).json({ message: "Wrong account type" });
     }
-
+    // TODO: handle failure of create and update operations
     const result = await Account.create({
       name: name,
       type: type,

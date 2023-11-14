@@ -2,12 +2,7 @@ import User from "../../models/user.js";
 
 const getAll = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.user._id }).populate("accounts");
-    // const result = await Account.findOneAndUpdate(
-    //   { _id: account._id },
-    //   account
-    // );
-    return res.status(200).json({ message: "" });
+    return res.status(200).json({ accounts: req.user.accounts });
   } catch (error) {
     console.log(error);
     return res
