@@ -23,7 +23,7 @@ const updateOne = async (req, res) => {
     console.log(error);
     return res
       .status(500)
-      .json({ message: "Something went wrong, account could not be fetched" });
+      .json({ message: "Something went wrong, account could not be updated" });
   }
 };
 
