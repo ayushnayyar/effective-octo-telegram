@@ -12,12 +12,16 @@ const auth = async (req, res, next) => {
     return res.status(401).send("Token not provided.");
   }
 
-  console.log(token, authHeader);
-
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
-    console.log(decoded);
-    const user = await User.findOne({ "sessions.token": token });
+    let user;
+    if (!req.populate) {
+      user = await User.findOne({ "sessions.token": token });
+    } else {
+      user = await User.findOne({ "sessions.token": token }).populate(
+        "accounts"
+      );
+    }
     // If the user is not found, the token is invalid...
     if (!user) {
       return res.status(401).send("Invalid token.");

@@ -1,6 +1,7 @@
 import express from "express";
 
 import auth from "../middleware/auth.js";
+import setPopulate from "../middleware/set_populate.js";
 import accountOwnerCheck from "../middleware/account_owner_check.js";
 
 import createOne from "../controllers/account/create_one.js";
@@ -15,7 +16,7 @@ const router = express.Router();
 router.post("/", auth, createOne);
 
 // Retrieve all accounts for the authenticated user
-router.get("/", auth, getAll);
+router.get("/", setPopulate, auth, getAll);
 
 // Retrieve a specific account by ID
 router.get("/:id", auth, accountOwnerCheck, getById);
