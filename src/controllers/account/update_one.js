@@ -1,5 +1,4 @@
 import Account from "../../models/account.js";
-import User from "../../models/user.js";
 
 const updateOne = async (req, res) => {
   const { name, type, balance } = req.body;
