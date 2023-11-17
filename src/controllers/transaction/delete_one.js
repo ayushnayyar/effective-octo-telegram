@@ -1,18 +1,23 @@
+import Transaction from "../../models/transaction.js";
+import Account from "../../models/account.js";
+
 const deleteOne = async (req, res) => {
-  const account = req.account;
+  const transaction = req.transaction;
   try {
     // TODO: handle failure of delete and update operations
-    const result = await Account.findOneAndDelete({ _id: account._id });
-    const updateUser = await User.findOneAndUpdate(
+    const result = await Transaction.findOneAndDelete({ _id: transaction._id });
+    const updateAccount = await Account.findOneAndUpdate(
       { _id: req.user._id },
-      { $pull: { accounts: account._id } }
+      { $pull: { transactions: transaction._id } }
     );
-    return res.status(200).json({ message: "Account deleted" });
+    return res.status(200).json({ message: "Transaction deleted" });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ message: "Something went wrong, account could not be deleted" });
+      .json({
+        message: "Something went wrong, transaction could not be deleted",
+      });
   }
 };
 
