@@ -4,19 +4,20 @@ const updateOne = async (req, res) => {
   const { name, type, balance } = req.body;
   const account = req.account;
   try {
+    let updates = {};
     if (name) {
-      account.name = name;
+      updates = { ...updates, name: name };
     }
     if (type) {
-      account.type = type;
+      updates = { ...updates, type: type };
     }
     if (balance) {
-      account.balance = balance;
+      updates = { ...updates, balance: balance };
     }
     // TODO: handle failure of update operation
     const result = await Account.findOneAndUpdate(
       { _id: account._id },
-      account
+      updates
     );
     return res.status(200).json({ message: "Account updated" });
   } catch (error) {

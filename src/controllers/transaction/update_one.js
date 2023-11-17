@@ -1,26 +1,35 @@
 import Transaction from "../../models/transaction.js";
 
+import { transactionType } from "../../common/variables.js";
+
 const updateOne = async (req, res) => {
   const { amount, description, type, category } = req.body;
-  const transaction = req.transaction;
+  let transaction = req.transaction;
   try {
+    let updates = {};
     if (amount) {
-      transaction.amount = amount;
+      updates = { ...updates, amount: amount };
     }
     if (type) {
-      transaction.type = type;
+      if (type !== transactionType.credit && type !== transactionType.debit) {
+        return res.status(400).json({ message: "Wrong transaction type" });
+      }
+      updates = { ...updates, type: type };
     }
     if (description) {
-      transaction.description = description;
+      updates = { ...updates, description: description };
     }
     if (category) {
-      transaction.category = category;
+      updates = { ...updates, category: category };
     }
+
     // TODO: handle failure of update operation
     const result = await Transaction.findOneAndUpdate(
       { _id: transaction._id },
-      transaction
+      updates,
+      { upsert: true }
     );
+
     return res.status(200).json({ message: "Transaction updated" });
   } catch (error) {
     console.log(error);
