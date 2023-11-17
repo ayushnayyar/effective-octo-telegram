@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import { populateType } from "../common/variables.js";
 
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -15,13 +16,26 @@ const auth = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
     let user;
-    if (!req.populate) {
-      user = await User.findOne({ "sessions.token": token });
-    } else {
-      user = await User.findOne({ "sessions.token": token }).populate(
-        "accounts"
-      );
+    switch (req.populate) {
+      case populateType.account:
+        user = await User.findOne({ "sessions.token": token }).populate(
+          "accounts"
+        );
+        break;
+      case populateType.transaction:
+        user = await User.findOne({ "sessions.token": token }).populate({
+          path: "accounts",
+          component: "Account",
+          populate: {
+            path: "transactions",
+            component: "Transaction",
+          },
+        });
+        break;
+      default:
+        user = await User.findOne({ "sessions.token": token });
     }
+
     // If the user is not found, the token is invalid...
     if (!user) {
       return res.status(401).send("Invalid token.");

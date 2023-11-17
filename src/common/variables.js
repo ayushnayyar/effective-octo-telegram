@@ -7,6 +7,11 @@ export const accountType = {
 };
 
 export const transactionType = {
-  income: "Income",
-  expense: "Expense",
+  credit: "Credit",
+  debit: "Debit",
+};
+
+export const populateType = {
+  account: "Account",
+  transaction: "Transaction",
 };

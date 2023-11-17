@@ -1,5 +1,3 @@
-import User from "../../models/user.js";
-
 const getAll = async (req, res) => {
   try {
     return res.status(200).json({ accounts: req.user.accounts });

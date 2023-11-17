@@ -1,25 +1,18 @@
 const getAll = async (req, res) => {
-  const { account } = req.body;
-
+  const user = req.user;
   try {
-    if (type !== transactionType.income && type !== transactionType.expense) {
-      return res.status(400).json({ message: "Wrong transaction type" });
-    }
-
-    const result = await Transaction.create({
-      amount: amount,
-      description: description,
-      type: type,
-      category: category,
-      account: account,
-      createdBy: req.user._id,
+    let allTransactions = [];
+    user.accounts.forEach((account) => {
+      allTransactions = [...allTransactions, ...account.transactions];
     });
-
-    return res.status(201).json({ _id: result._id });
+    const sortedTransactions = allTransactions.sort(
+      (transaction1, transaction2) => transaction2.date - transaction1.date
+    );
+    return res.status(200).json({ transactions: sortedTransactions });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "Something went wrong, transaction could not be added",
+      message: "Something went wrong, transactions could not be fetched",
     });
   }
 };

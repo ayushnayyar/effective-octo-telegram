@@ -10,13 +10,20 @@ import getById from "../controllers/account/get_by_id.js";
 import updateOne from "../controllers/account/update_one.js";
 import deleteOne from "../controllers/account/delete_one.js";
 
+import { populateType } from "../common/variables.js";
+
 const router = express.Router();
 
 // Create a new account
 router.post("/", auth, createOne);
 
-// Retrieve all accounts for the authenticated user
-router.get("/", setPopulate, auth, getAll);
+// Retrieve all accounts for the authenticated user, populate accounts in user object
+router.get(
+  "/",
+  setPopulate({ populationType: populateType.account }),
+  auth,
+  getAll
+);
 
 // Retrieve a specific account by ID
 router.get("/:id", auth, accountOwnerCheck, getById);
