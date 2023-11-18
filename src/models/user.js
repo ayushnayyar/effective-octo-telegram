@@ -7,6 +7,7 @@ const userSchema = Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     accounts: [{ type: Schema.Types.ObjectId, ref: "Account" }],
+    creditCards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
     phone: { type: String }, // TODO: Add required and unique params
     sessions: [
       {
