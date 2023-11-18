@@ -1,7 +1,5 @@
 import Transaction from "../../models/transaction.js";
 
-import { transactionType } from "../../common/variables.js";
-
 const updateOne = async (req, res) => {
   const { amount, description, category } = req.body;
   let transaction = req.transaction;

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-import { accountType, transactionType } from "../common/variables";
+import { accountType, transactionType } from "../common/variables.js";
 
 const transactionSchema = new Schema({
   account: { type: Schema.Types.ObjectId, ref: "Account", required: true },
@@ -12,11 +12,6 @@ const transactionSchema = new Schema({
     type: String,
     required: true,
     enum: [transactionType.credit, transactionType.debit],
-  },
-  instrument: {
-    type: String,
-    required: true,
-    enum: [accountType.bank, accountType.card],
   },
   createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
