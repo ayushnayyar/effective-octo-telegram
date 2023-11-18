@@ -14,6 +14,6 @@ const CardAccountSchema = new Schema({
   minimumDue: { type: Number },
 });
 
-const CardAccount = Account.discriminator("CardAccount", CardAccountSchema);
+const CardAccount = Account.discriminator("Card", CardAccountSchema);
 
 export default CardAccount;

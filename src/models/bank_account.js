@@ -11,6 +11,6 @@ const BankAccountSchema = new Schema({
   },
 });
 
-const BankAccount = Account.discriminator("BankAccount", BankAccountSchema);
+const BankAccount = Account.discriminator("Bank", BankAccountSchema);
 
 export default BankAccount;

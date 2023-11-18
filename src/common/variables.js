@@ -2,18 +2,18 @@ export const jwtTokenExpiry = "14d";
 export const numberOfSessionsAllowed = 5;
 
 export const accountType = {
-  creditCard: "Credit Card",
-  bankAccount: "Bank Account",
+  card: "Card",
+  bank: "Bank",
 };
 
 export const bankAccountType = {
-  savings: "Savings Account",
-  current: "Current Account",
+  savings: "Savings",
+  current: "Current",
 };
 
 export const cardType = {
-  credit: "Credit Card",
-  charge: "Charge Card",
+  credit: "Credit",
+  charge: "Charge",
 };
 
 export const transactionType = {
