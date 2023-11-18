@@ -3,18 +3,12 @@ import Transaction from "../../models/transaction.js";
 import { transactionType } from "../../common/variables.js";
 
 const updateOne = async (req, res) => {
-  const { amount, description, type, category } = req.body;
+  const { amount, description, category } = req.body;
   let transaction = req.transaction;
   try {
     let updates = {};
     if (amount) {
       updates = { ...updates, amount: amount };
-    }
-    if (type) {
-      if (type !== transactionType.credit && type !== transactionType.debit) {
-        return res.status(400).json({ message: "Wrong transaction type" });
-      }
-      updates = { ...updates, type: type };
     }
     if (description) {
       updates = { ...updates, description: description };

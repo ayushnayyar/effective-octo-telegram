@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import { accountType, transactionType } from "../../common/variables.js";
 
 const createOne = async (req, res) => {
-  const { amount, account, description, type, category } = req.body;
+  const { amount, account, instrument, description, type, category } = req.body;
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -15,12 +15,17 @@ const createOne = async (req, res) => {
       return res.status(400).json({ message: "Wrong transaction type." });
     }
 
+    if (instrument !== accountType.bank && instrument !== accountType.card) {
+      return res.status(400).json({ message: "Wrong instrument." });
+    }
+
     const newTransaction = new Transaction({
       amount: amount,
       description: description,
       type: type,
       category: category,
       account: account,
+      instrument: instrument,
       createdBy: req.user._id,
     });
 
