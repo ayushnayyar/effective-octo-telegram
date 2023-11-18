@@ -1,12 +1,11 @@
-import AccountTransaction from "../../models/account_transaction.js";
-import CardTransaction from "../../models/card_transaction.js";
+import Transaction from "../../models/transaction.js";
 import Account from "../../models/account.js";
 import mongoose from "mongoose";
 
 import { accountType, transactionType } from "../../common/variables.js";
 
 const createOne = async (req, res) => {
-  const { amount, instrument, account, description, type, category } = req.body;
+  const { amount, account, description, type, category } = req.body;
 
   const session = await mongoose.startSession();
   session.startTransaction();

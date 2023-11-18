@@ -1,18 +1,27 @@
+import { accountType } from "../../common/variables.js";
 import Account from "../../models/account.js";
 
 const updateOne = async (req, res) => {
-  const { name, type, balance } = req.body;
+  const { name, balance, dueDate, totalDue, minimumDue } = req.body;
   const account = req.account;
   try {
     let updates = {};
     if (name) {
       updates = { ...updates, name: name };
     }
-    if (type) {
-      updates = { ...updates, type: type };
-    }
     if (balance) {
       updates = { ...updates, balance: balance };
+    }
+    if (account.instrument === accountType.card) {
+      if (dueDate) {
+        updates = { ...updates, dueDate: dueDate };
+      }
+      if (totalDue) {
+        updates = { ...updates, totalDue: totalDue };
+      }
+      if (minimumDue) {
+        updates = { ...updates, minimumDue: minimumDue };
+      }
     }
     // TODO: handle failure of update operation
     const result = await Account.findOneAndUpdate(
